@@ -1,0 +1,66 @@
+name: Build and Test
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: "18 10 * * 1"
+
+jobs:
+  Linux:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        image:
+          - swift:5.4.2-bionic
+          - swift:5.5.0-focal
+    container: ${{ matrix.image }}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Build Swift Debug Package
+        run: swift build -c debug
+      - name: Build Swift Release Package
+        run: swift build -c release
+      - name: Run Tests
+        run: swift test --enable-test-discovery
+  SwiftPackage:
+    runs-on: macos-latest
+    steps:
+      - name: Select latest available Xcode
+        uses: maxim-lobanov/setup-xcode@v1.2.1
+        with:
+          xcode-version: 12.2
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Build Swift Debug Package
+        run: swift build -c debug
+      - name: Build Swift Release Package
+        run: swift build -c release
+  iOS:
+    runs-on: macos-latest
+    steps:
+      - name: Select latest available Xcode
+        uses: maxim-lobanov/setup-xcode@v1.2.1
+        with:
+          xcode-version: 12.2
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Prerequisites
+        run: gem install xcpretty
+      - name: Build
+        run: set -o pipefail; xcodebuild -scheme Dracula-iOS build | xcpretty --color
+  NeXTstep:
+    runs-on: macos-latest
+    steps:
+      - name: Select latest available Xcode
+        uses: maxim-lobanov/setup-xcode@v1.2.1
+        with:
+          xcode-version: 12.2
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Prerequisites
+        run: gem install xcpretty
+      - name: Build
+        run: set -o pipefail; xcodebuild -scheme Dracula-macOS build | xcpretty --color
