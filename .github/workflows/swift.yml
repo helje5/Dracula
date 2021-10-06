@@ -24,7 +24,7 @@ jobs:
       - name: Build Swift Release Package
         run: swift build -c release
       - name: Run Tests
-        run: swift test
+        run: swift test --enable-test-discovery
   SwiftPackage:
     runs-on: macos-latest
     steps:
@@ -50,7 +50,7 @@ jobs:
       - name: Prerequisites
         run: gem install xcpretty
       - name: Build
-        run: set -o pipefail; xcodebuild -scheme UXKit-UIKit build | xcpretty --color
+        run: set -o pipefail; xcodebuild -scheme Dracula-iOS build | xcpretty --color
   NeXTstep:
     runs-on: macos-latest
     steps:
@@ -63,4 +63,4 @@ jobs:
       - name: Prerequisites
         run: gem install xcpretty
       - name: Build
-        run: set -o pipefail; xcodebuild -scheme UXKit-AppKit build | xcpretty --color
+        run: set -o pipefail; xcodebuild -scheme Dracula-macOS build | xcpretty --color
