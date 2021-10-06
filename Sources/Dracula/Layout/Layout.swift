@@ -29,7 +29,7 @@ public struct Layout<ID: Hashable>: Equatable {
   public internal(set) var bounds : Bounds?
   
   // Used to store the position for each node. Dracula stores this in-object.
-  internal var positions = [ ID : Point ]()
+  public var positions = [ ID : Point ]()
   
   // MARK: - Access
   

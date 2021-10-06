@@ -167,10 +167,10 @@
 		E8043D13270DFC4E0035C688 /* Layout */ = {
 			isa = PBXGroup;
 			children = (
+				E8043D17270DFC4E0035C688 /* Layout.swift */,
 				E8043D14270DFC4E0035C688 /* Spring.swift */,
 				E8043D15270DFC4E0035C688 /* TournamentTree.swift */,
 				E8043D16270DFC4E0035C688 /* OrderedTree.swift */,
-				E8043D17270DFC4E0035C688 /* Layout.swift */,
 			);
 			path = Layout;
 			sourceTree = "<group>";
