@@ -26,8 +26,13 @@ public struct Layout<ID: Hashable>: Equatable {
     public var maxy: Double
   }
 
-  public internal(set) var bounds : Bounds?
-  
+  public internal(set) var bounds : Bounds {
+    set { _bounds = newValue }
+    get { return _bounds ?? calculateBounds() }
+  }
+
+  internal var _bounds : Bounds?
+
   // Used to store the position for each node. Dracula stores this in-object.
   public var positions = [ ID : Point ]()
   
