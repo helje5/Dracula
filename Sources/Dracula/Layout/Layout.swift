@@ -5,6 +5,8 @@
 //  Created by Helge Heß on 05.10.21.
 //
 
+import Foundation
+
 
 /**
  * Result value for distributing nodes algorithms.
@@ -88,3 +90,39 @@ public struct LayoutPoint: Equatable {
   }
 }
 
+fileprivate let nf : NumberFormatter = {
+  let nf = NumberFormatter()
+  nf.maximumFractionDigits = 3
+  return nf
+}()
+
+extension Layout: CustomStringConvertible {
+  
+  public var description: String {
+    var ms = "<Layout:"
+    
+    if let bounds = _bounds {
+      ms += " bounds=["
+      ms += (nf.string(for: bounds.minx) ?? "?") + " "
+      ms += (nf.string(for: bounds.miny) ?? "?") + " "
+      ms += (nf.string(for: bounds.maxx) ?? "?") + " "
+      ms += (nf.string(for: bounds.maxy) ?? "?") + "]"
+    }
+    else {
+      ms += " no-bounds"
+    }
+    
+    if positions.isEmpty {
+      ms += " no-positions"
+    }
+    else {
+      for ( key, point ) in positions {
+        ms += " \(key)["
+        ms += (nf.string(for: point.x) ?? "?") + ","
+        ms += (nf.string(for: point.y) ?? "?") + "]"
+      }
+    }
+    ms += ">"
+    return ms
+  }
+}
