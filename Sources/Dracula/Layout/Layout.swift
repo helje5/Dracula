@@ -28,7 +28,7 @@ public struct Layout<ID: Hashable>: Equatable {
     public var maxy: Double
   }
 
-  public internal(set) var bounds : Bounds {
+  public var bounds : Bounds {
     set { _bounds = newValue }
     get { return _bounds ?? calculateBounds() }
   }
